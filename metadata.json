@@ -1,0 +1,7 @@
+{
+  "uuid": "audio-device-manager@yourdomain.com",
+  "name": "Audio Device Manager",
+  "description": "Manage audio input and output devices from the top bar.",
+  "shell-version": ["42", "43", "44", "45", "46", "47", "48", "49"],
+  "version": 1
+}
