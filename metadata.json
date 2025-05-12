@@ -1,7 +1,9 @@
 {
-  "uuid": "audio-device-manager@yourdomain.com",
+  "uuid": "audio-device-manager@alemany",
   "name": "Audio Device Manager",
-  "description": "Manage audio input and output devices from the top bar.",
+  "description": "Control and switch between audio input/output devices from the top bar.",
   "shell-version": ["42", "43", "44", "45", "46", "47", "48", "49"],
-  "version": 1
+  "version": 1,
+  "url": "https://github.com/adrialemany/audio-device-manager",
+  "settings-schema": null
 }
