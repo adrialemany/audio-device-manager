@@ -30,7 +30,6 @@ To activate this extension, you must have the **Extension** and **Extension Mana
 
 ✅ Tested on:
 * Ubuntu 22.04 LTS (GNOME Shell 42.9)
-* Linux Mint 21.3 Cinnamon (using GNOME Shell components, tested for `pactl` interactions)
 
 ⚠️ Compatibility with other distributions or GNOME Shell versions is not guaranteed but is likely if PulseAudio and `pactl` are standard. Please report any issues.
 
@@ -38,11 +37,11 @@ To activate this extension, you must have the **Extension** and **Extension Mana
 
 ### Panel Indicator
 Shows a simplified view of your current microphone and speaker/headphone.
-![Panel Indicator Preview](https://raw.githubusercontent.com/yourusername/your-repo-name/main/screenshots/panel_indicator.png)
+![Panel Indicator Preview](https://drive.google.com/uc?export=view&id=1136tx_84C7H67j7gh7hJ1J8dNeQYeda2)
 
 *Example: `🎤 Built-in 🔊 Headphones`*
 
 ### Device Selection Menu
 Allows quick switching between all detected input and output audio devices.
-![Device Menu Preview](https://raw.githubusercontent.com/adrialemany/cirtesu_gui/tree/main/Assets-github-other-repositories/select.png)
+![Device Menu Preview](https://drive.google.com/uc?export=view&id=1BlqpzyHx11JoFJLvCSqx2nRxXxMpV1V)
 
