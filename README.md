@@ -21,7 +21,6 @@ To activate this extension, you must have the **Extension** and **Extension Mana
     * For Wayland sessions (or if the above doesn't work): Log out of your user session and log back in.
 4.  **Activate:** Open the **Extensions** app (or Extension Manager app) and activate the "Audio Device Manager" extension.
 
-### In Extensions App
 ## Compatibility
 
 ✅ Tested on:
