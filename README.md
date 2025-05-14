@@ -37,11 +37,11 @@ To activate this extension, you must have the **Extension** and **Extension Mana
 
 ### Panel Indicator
 Shows a simplified view of your current microphone and speaker/headphone.
-![Panel Indicator Preview](https://drive.google.com/uc?export=view&id=1136tx_84C7H67j7gh7hJ1J8dNeQYeda2)
 
-*Example: `🎤 Built-in 🔊 Headphones`*
+![Panel Indicator Preview](https://drive.google.com/uc?export=view&id=1136tx_84C7H67j7gh7hJ1J8dNeQYeda2)
 
 ### Device Selection Menu
 Allows quick switching between all detected input and output audio devices.
-![Device Menu Preview](https://drive.google.com/uc?export=view&id=1BlqpzyHx11JoFJLvCSqx2nRxXxMpV1V)
+![Device Menu Preview]
+(https://drive.google.com/uc?export=view&id=1BlqpzyHx11JoFJLvCSqx2nRxXxMpV1V_)
 
