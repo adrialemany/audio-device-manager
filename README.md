@@ -1,4 +1,4 @@
-# GNOME Shell Audio Device Chooser Extension
+# GNOME Shell Audio Device Manager Extension
 
 ## What it does
 
@@ -11,19 +11,15 @@ To activate this extension, you must have the **Extension** and **Extension Mana
 ## Installation
 
 1.  **Download:** Download the latest release of this extension (or clone the repository).
-2.  **Identify UUID:** Check the `uuid` field in the `metadata.json` file within the extension's folder. Let's assume it's `audio-device-chooser@yourusername.org`.
-3.  **Copy to Extensions Folder:** Copy the entire extension folder into your local GNOME Shell extensions directory, renaming the folder to match the UUID:
+2.  **Copy to Extensions Folder:** Copy the entire extension folder into your local GNOME Shell extensions directory, renaming the folder to match the UUID:
 
     ```bash
-    # Example: if you downloaded it to ~/Downloads/audio-chooser-extension-main
-    # and the UUID is audio-device-chooser@yourusername.org
-    cp -r ~/Downloads/audio-chooser-extension-main ~/.local/share/gnome-shell/extensions/audio-device-chooser@yourusername.org
+    ~/.local/share/gnome-shell/extensions/audio-device-manager@alemany
     ```
-
-4.  **Restart GNOME Shell or Relogin:**
+3.  **Restart GNOME Shell or Relogin:**
     * For X11 sessions: Press `Alt` + `F2`, type `r`, and press `Enter`.
     * For Wayland sessions (or if the above doesn't work): Log out of your user session and log back in.
-5.  **Activate:** Open the **Extensions** app (or Extension Manager app) and activate the "Audio Device Chooser" extension.
+4.  **Activate:** Open the **Extensions** app (or Extension Manager app) and activate the "Audio Device Manager" extension.
 
 ### In Extensions App
 ## Compatibility
@@ -44,4 +40,3 @@ Shows a simplified view of your current microphone and speaker/headphone.
 Allows quick switching between all detected input and output audio devices.
 
 ![Device Menu Preview](https://drive.google.com/uc?export=view&id=1BlqpzyHx11JoFJLvCSqx2nRxXxMpV1V_)
-
