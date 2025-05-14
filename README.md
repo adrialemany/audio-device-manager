@@ -42,6 +42,5 @@ Shows a simplified view of your current microphone and speaker/headphone.
 
 ### Device Selection Menu
 Allows quick switching between all detected input and output audio devices.
-![Device Menu Preview]
-(https://drive.google.com/uc?export=view&id=1BlqpzyHx11JoFJLvCSqx2nRxXxMpV1V_)
+![Device Menu Preview](https://drive.google.com/uc?export=view&id=1BlqpzyHx11JoFJLvCSqx2nRxXxMpV1V_)
 
