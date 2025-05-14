@@ -51,15 +51,21 @@ class AudioDeviceManager extends St.Bin {
         const defaultSinkName = this._getDefaultDevice('sink');
         const defaultSourceName = this._getDefaultDevice('source');
 
-        const defaultSink = this._getDescriptionForDevice(defaultSinkName, 'sink');
-        const defaultSource = this._getDescriptionForDevice(defaultSourceName, 'source');
+        const defaultSinkDetails = this._getDeviceDetails(defaultSinkName, 'sink');
+        const defaultSourceDetails = this._getDeviceDetails(defaultSourceName, 'source');
 
-        // Barra superior: simplificar si contiene "Built-in"
+        const defaultSinkDesc = defaultSinkDetails ? defaultSinkDetails.description : defaultSinkName;
+        const defaultSinkActivePort = defaultSinkDetails ? defaultSinkDetails.activePort : null;
+
+        const defaultSourceDesc = defaultSourceDetails ? defaultSourceDetails.description : defaultSourceName;
+        const simplifiedSourceName = this._simplifyName(defaultSourceDesc, null);
+        const simplifiedSinkName = this._simplifyName(defaultSinkDesc, defaultSinkActivePort);
+
+
         this._label.set_text(
-            `${MIC_ICON} ${this._simplifyName(defaultSource)}  ${SPEAKER_ICON} ${this._simplifyName(defaultSink)}`
+            `${MIC_ICON} ${simplifiedSourceName}  ${SPEAKER_ICON} ${simplifiedSinkName}`
         );
 
-        // Output Devices
         const outputHeader = new PopupMenu.PopupMenuItem('Output Devices', { reactive: false });
         outputHeader.label.set_style('color: #00ffff; font-weight: bold;');
         this._menu.addMenuItem(outputHeader);
@@ -95,11 +101,16 @@ class AudioDeviceManager extends St.Bin {
         out.forEach(line => {
             if (line.startsWith(`${type[0].toUpperCase() + type.slice(1)} #`)) {
                 if (current) devices.push(current);
-                current = { name: '', description: '' };
-            } else if (line.includes('Name:')) {
-                current.name = line.split('Name:')[1].trim();
-            } else if (line.includes('Description:')) {
-                current.description = line.split('Description:')[1].trim();
+                current = { name: '', description: '', activePort: null };
+            } else if (current) {
+                const trimmedLine = line.trim();
+                if (trimmedLine.startsWith('Name:')) {
+                    current.name = trimmedLine.substring('Name:'.length).trim();
+                } else if (trimmedLine.startsWith('Description:')) {
+                    current.description = trimmedLine.substring('Description:'.length).trim();
+                } else if (trimmedLine.startsWith('Active Port:')) { // New: Parse Active Port
+                    current.activePort = trimmedLine.substring('Active Port:'.length).trim();
+                }
             }
         });
 
@@ -107,10 +118,10 @@ class AudioDeviceManager extends St.Bin {
         return devices;
     }
 
-    _getDescriptionForDevice(name, type) {
+    _getDeviceDetails(name, type) {
+        if (!name) return null;
         const devices = this._getDevices(type);
-        const found = devices.find(d => d.name === name);
-        return found ? found.description : name;
+        return devices.find(d => d.name === name) || null;
     }
 
     _getDefaultDevice(type) {
@@ -120,13 +131,22 @@ class AudioDeviceManager extends St.Bin {
 
         const key = type === 'sink' ? 'Default Sink:' : 'Default Source:';
         const line = out.find(l => l.startsWith(key));
-        return line ? line.split(': ')[1] : null;
+        return line ? line.split(': ')[1].trim() : null;
     }
 
-    _simplifyName(name) {
-        if (!name) return '?';
-        if (name.includes('Built-in')) return 'Built-in';
-        return name;
+    _simplifyName(description, activePort = null) {
+        if (!description) return '?';
+
+        if (activePort && activePort.toLowerCase().includes('headphone')) {
+            return 'Headphones';
+        }
+
+        const descLower = description.toLowerCase();
+        if (descLower.includes('headphones')) return 'Headphones';
+        if (descLower.includes('built-in')) return 'Built-in';
+        if (descLower.includes('speaker')) return 'Speakers';
+        
+        return description;
     }
 
     _setDefaultDevice(type, name) {
@@ -138,30 +158,46 @@ class AudioDeviceManager extends St.Bin {
             GLib.source_remove(this._refreshLoop);
             this._refreshLoop = null;
         }
-        this._menu.destroy();
+        if (this._menu) {
+            this._menu.destroy();
+            this._menu = null;
+        }
         super.destroy();
     }
 });
 
 let audioIndicator;
 
-function init() {}
+function init() {
+}
 
 function enable() {
     audioIndicator = new AudioDeviceManager();
+    const existingContainer = Main.panel._leftBox.get_children().find(ch => ch.has_style_class_name && ch.has_style_class_name('audio-device-manager-container'));
+    if (existingContainer) existingContainer.destroy();
 
-    const leftBox = Main.panel._leftBox;
 
+    const container = new St.BoxLayout({ style_class: 'audio-device-manager-container', x_expand: true });
     const spacer = new St.Widget({ x_expand: true });
-
-    const container = new St.BoxLayout({ x_expand: true });
-    container.add_child(spacer);
+    
+    container.add_child(spacer); 
     container.add_child(audioIndicator);
+    
+    Main.panel._leftBox.add_child(container);
 
-    leftBox.add_child(container);
+
 }
 
 function disable() {
+    // Find and destroy the container as well if you used one in enable()
+    const children = Main.panel._leftBox.get_children();
+    for (let i = 0; i < children.length; i++) {
+        if (audioIndicator && children[i] === audioIndicator.get_parent()) {
+             children[i].destroy();
+             break;
+        }
+    }
+
     if (audioIndicator) {
         audioIndicator.destroy();
         audioIndicator = null;
